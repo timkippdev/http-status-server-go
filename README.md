@@ -24,7 +24,6 @@ Content-Length: 13
 
 ### Example Request/Response - JSON
 
-> 404 response: http://some-domain-here.com/404
 ```text
 curl -i -H "Accept:application/json" localhost:8080/404
 HTTP/1.1 404 Not Found
@@ -39,10 +38,16 @@ Content-Length: 48
 
 ### Prerequisites
 1) Golang (Go) Installed - https://golang.org/doc/install
+2) Docker Installed - https://docs.docker.com/v17.09/engine/installation/
 
 ### Start Server
-Inside your project directory, run the following command:
+Inside your project directory, run the following commands:
 ```bash
-go run main.go
+# starting server
+docker build -t http-status-server:0.0.1 .
+docker run -p 8080:8080 -d --rm --name http-status-server http-status-server:0.0.1
+
+# stopping server
+docker container stop http-status-server
 ```
 Your server should now be available at http://localhost:8080
